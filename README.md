@@ -1,1 +1,1 @@
-Veri Yapıları ve Algoreitmalar-2025 Ödev ve Lablar
+Veri Yapıları ve Algoritmalar-2025 Ödev ve Lablar
