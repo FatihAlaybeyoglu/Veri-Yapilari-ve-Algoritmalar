@@ -78,6 +78,7 @@ gcc 23011009.c -o sort -Wall
 Program çalıştığında, kullanıcıdan dosya adı istenir:
 
 Enter Filename: input.txt
+
 🏁 Sonuç
 
 Bu proje, Quick Sort algoritmasının senkronize diziler üzerinde uygulanması fikrini göstermektedir.
