@@ -1,69 +1,84 @@
-Key-Lock Sorting with Quick Sort
+🔐 Anahtar ve Kilit Eşleştirme (Böl ve Yönet – Quick Sort)
+📘 Proje Özeti
 
-Bu proje, Böl ve Yönet (Divide and Conquer) yaklaşımıyla Quick Sort algoritmasını kullanarak, dosyadan okunan key ve lock değerlerini senkronize biçimde sıralayan bir C programıdır.
+Bu proje, Böl ve Yönet (Divide and Conquer) yaklaşımıyla Quick Sort algoritmasını kullanarak iki diziyi (anahtarlar ve kilitler) senkronize şekilde sıralamayı amaçlamaktadır.
 
-📂 Proje Dosyaları
+Program, dosyadan anahtar (key) ve kilit (lock) değerlerini okuyup bu iki diziyi aynı pivot üzerinden eş zamanlı sıralayarak doğru anahtar–kilit eşleşmelerini elde eder.
 
-23011009.c → Programın C kaynak kodu
+⚙️ Program Akışı
 
-23011009.pdf → Algoritma raporu ve proje açıklaması
+Dosya Okuma (readFile)
 
-🚀 Çalışma Mantığı
-
-Dosyadan eleman sayısı, key değerleri ve lock değerleri okunur.
+Dosyadan önce dizinin uzunluğu, ardından anahtar ve kilit değerleri okunur.
 
 İki matris oluşturulur:
 
-keyValues → Key indeksleri ve değerleri
+[0][i]: Elemanın sırası (ID)
 
-lockValues → Lock indeksleri ve değerleri
+[1][i]: Elemanın değeri
 
-Quick Sort algoritması uygulanır:
+Sıralama (quickSort)
 
-Pivot seçilir, küçük değerler sola, büyük değerler sağa alınır.
+partition fonksiyonu ile pivot belirlenir.
 
-Key ve lock dizileri senkronize olarak sıralanır.
+Pivot değerinden küçük elemanlar sola, büyük elemanlar sağa taşınır.
 
-Her partition işleminde key ve lock eşleşmeleri korunur.
+Aynı pivot değeri, hem keyValues hem lockValues dizilerinde bulunarak iki dizi senkronize biçimde sıralanır.
 
-📥 Kurulum ve Çalıştırma
-# Derleme
-gcc 23011009.c -o keylock
+Ekran Çıktısı
 
-# Çalıştırma
-./keylock
+Sıralama tamamlandıktan sonra her anahtar–kilit eşleşmesi ekrana yazdırılır.
+
+Boş dosya veya sıfır elemanlı girişlerde uygun uyarı verilir.
+
+🧩 Temel Fonksiyonlar
+Fonksiyon	Açıklama
+readFile()	Dosyadaki verileri okur ve iki matris oluşturur.
+swapElements()	İki elemanın (ID ve değer) yerini değiştirir.
+findPivotIndex()	Seçilen pivotun diğer dizideki indeksini bulur.
+partition()	Quick Sort’un temel bölme işlemini gerçekleştirir.
+quickSort()	Dizileri senkronize şekilde sıralar.
+💡 Önemli Detaylar
+
+Quick Sort algoritması her adımda diziyi pivot etrafında ikiye böler.
+
+Pivot doğru yere yerleştirildiğinde, sol taraf küçük değerleri, sağ taraf büyük değerleri içerir.
+
+Bu işlem rekürsif olarak devam eder; ortalama karmaşıklık O(n log n)’dir.
+
+Eş zamanlı sıralama için findPivotIndex fonksiyonu sayesinde pivot değeri her iki dizide aynı konuma getirilir.
+
+🧠 Karşılaşılan Sorunlar ve Çözümler
+
+Sorun: İki matrisin senkronize şekilde sıralanması gerekiyordu.
+Çözüm: İlk dizide belirlenen pivot değerinin, ikinci dizideki indeksini döndüren findPivotIndex fonksiyonu eklendi.
+Böylece her partition aşamasında iki dizi de aynı pivot değerine göre işlem gördü.
+
+🧪 Örnek Girdi / Çıktı
+Girdi (input.txt):
+5
+3 8 2 6 5
+8 2 3 5 6
+
+Çıktı:
+1. key : 2 | 1. lock : 2
+2. key : 3 | 2. lock : 3
+3. key : 5 | 3. lock : 5
+4. key : 6 | 4. lock : 6
+5. key : 8 | 5. lock : 8
+
+🧰 Derleme ve Çalıştırma
+Derleme:
+gcc 23011009.c -o sort -Wall
+
+Çalıştırma:
+./sort
 
 
-Program sizden dosya adını isteyecektir. Örneğin:
+Program çalıştığında, kullanıcıdan dosya adı istenir:
 
 Enter Filename: input.txt
+🏁 Sonuç
 
-✅ Girdi Formatı (input.txt)
-5
-12 7 19 3 25   # key değerleri
-12 7 19 3 25   # lock değerleri
-
-📤 Örnek Çıktı
-1. key : 3  | 1. lock : 3
-2. key : 7  | 2. lock : 7
-3. key : 12 | 3. lock : 12
-4. key : 19 | 4. lock : 19
-5. key : 25 | 5. lock : 25
-
-⚙️ Kullanılan Fonksiyonlar
-
-readFile() → Dosyadan key ve lock değerlerini okur.
-
-swapElements() → İki elemanı yer değiştirir.
-
-findPivotIndex() → Pivotun lockValues içindeki indeksini bulur.
-
-partition() → Quick Sort partition işlemini yapar.
-
-quickSort() → Diziyi recursive olarak sıralar.
-
-📌 Karşılaşılan Sorunlar
-
-İki matrisin senkronize biçimde sıralanması gerekiyordu.
-
-Çözüm olarak, seçilen pivot değeri her iki dizide aranarak aynı indeks üzerinden partition işlemi yapılmıştır.
+Bu proje, Quick Sort algoritmasının senkronize diziler üzerinde uygulanması fikrini göstermektedir.
+Hem böl ve yönet yaklaşımı hem de eş zamanlı sıralama mantığı birleştirilerek, gerçek dünyadaki “anahtar–kilit eşleştirme” problemine etkili bir çözüm sağlanmıştır.
